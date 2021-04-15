@@ -4,24 +4,36 @@
 
 using namespace std;
 using namespace sf;
-
 int main()
 {
-	Window window(sf::VideoMode(800, 600), "Adlez - Shooter");
+	sf::RenderWindow window(sf::VideoMode(1600, 1000), "SFML Application");
+	sf::Sprite shape;
+	sf::Texture text;
 
-	// run the program as long as the window is open
+	if (!text.loadFromFile("asset/playerShip2_blue.png"))
+	{
+		// not found
+	}
+	shape.setTexture(text);
+	//sf:Vector2f truc = Vector2f(100, 20);
+	//shape.setPosition(truc);
+	int x = 20;
 	while (window.isOpen())
 	{
-		// check all the window's events that were triggered since the last iteration of the loop
-		Event event;
+		
+		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			// "close requested" event: we close the window
-			if (event.type == Event::Closed)
+			if (event.type == sf::Event::Closed)
 				window.close();
+			if (event.key.code == sf::Keyboard::Escape)
+				x += 10;
+		Vector2f truc = Vector2f(100, x);
+		shape.setPosition(truc);
 		}
+		window.clear();
+		window.draw(shape);
+		window.display();
 	}
-
-	return 0;
 }
 
